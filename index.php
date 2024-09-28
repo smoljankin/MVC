@@ -1,25 +1,20 @@
 <?php
 
-require_once 'Controllers/Controller.php';
-require_once 'Views/View.php';
+require_once './vendor/autoload.php';
 
-$controllerName = 'UserController';
+use App\Controllers\UserController;
+use App\Controllers\Controller;
+use App\Models\UserModel;
+
 $action = 'form';
 
 if (!empty($_GET['action'])) {
     $action = $_GET['action'];
 }
 
-$controllerFile = 'Controllers/' . $controllerName . '.php';
-if (file_exists($controllerFile)) {
-    require_once $controllerFile;
-    $controller = new $controllerName();
-    if (method_exists($controller, $action)) {
-        $controller->$action();
-    } else {
-        echo "Action $action не знайдено";
-    }
+$controller = new UserController();
+if (method_exists($controller, $action)) {
+    $controller->$action();
 } else {
-    echo "Controller $controllerName не знайдено";
+    echo "Action $action не знайдено";
 }
-?>
