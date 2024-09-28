@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Controllers;
+
+use App\Views\View;
+
 class Controller {
     protected $view;
 
@@ -12,4 +16,3 @@ class Controller {
         return new $model();
     }
 }
-?>
