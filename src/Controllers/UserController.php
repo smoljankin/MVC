@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Controllers;
+
 class UserController extends Controller {
     private $container = [];
 
@@ -40,4 +42,3 @@ class UserController extends Controller {
         $this->view->render('user_search', ['result' => $result]);
     }
 }
-?>
