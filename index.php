@@ -3,8 +3,6 @@
 require_once './vendor/autoload.php';
 
 use App\Controllers\UserController;
-use App\Controllers\Controller;
-use App\Models\UserModel;
 
 $action = 'form';
 
