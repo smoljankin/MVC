@@ -2,16 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
+
 class UserController extends Controller {
-    private $container = [];
+    private $userModel;
 
     public function __construct() {
         parent::__construct();
-        session_start();
-        if (!isset($_SESSION['container'])) {
-            $_SESSION['container'] = [];
-        }
-        $this->container = &$_SESSION['container'];
+        $this->userModel = new UserModel();
     }
 
     public function form() {
@@ -25,7 +23,7 @@ class UserController extends Controller {
                 'phone' => $_POST['phone'],
                 'dob' => $_POST['dob']
             ];
-            $this->container[] = $user;
+            $this->userModel->addUser($user);
         }
         header('Location: index.php?action=form');
     }
@@ -33,11 +31,7 @@ class UserController extends Controller {
     public function search() {
         $result = [];
         if (!empty($_GET['query'])) {
-            foreach ($this->container as $user) {
-                if (strpos(strtolower($user['name']), strtolower($_GET['query'])) !== false) {
-                    $result[] = $user;
-                }
-            }
+            $result = $this->userModel->searchUsers($_GET['query']);
         }
         $this->view->render('user_search', ['result' => $result]);
     }
