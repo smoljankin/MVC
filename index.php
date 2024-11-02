@@ -2,17 +2,8 @@
 
 require_once './vendor/autoload.php';
 
-use App\Controllers\UserController;
-
-$action = 'form';
-
-if (!empty($_GET['action'])) {
-    $action = $_GET['action'];
-}
-
-$controller = new UserController();
-if (method_exists($controller, $action)) {
-    $controller->$action();
-} else {
-    echo "Action $action не знайдено";
-}
+$router = new App\Core\Router(
+    __DIR__ . '/config/routes.php', 
+    __DIR__ . '/config/general.php'
+);
+$router->handle();
